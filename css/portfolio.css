@@ -1,0 +1,46 @@
+/* A few styles to ajust default form styles for the portfolio module */
+form.crud label.intro {
+    display: block;
+    float: none;
+}
+li.date-meta div.selector {
+    float: left;
+    width: 70px;
+    /*background-position: -633px -130px;*/
+}
+li.date-meta div.selector span {
+    width: 28px;
+}
+li.date-meta label.time-meta {
+    width: auto;
+}
+
+/* Portfolio
+--------------------------------------------------------------------------*/
+.portfolio {
+    padding: 20px 0;
+}
+
+.portfolio h1 {
+    margin-bottom: 0;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.portfolio_item {
+    float: left;
+    padding-top: 10px;
+    margin-bottom: 10px;
+}
+
+.portfolio_item.view {
+    border-bottom: none;
+}
+
+.portfolio_item h2 {
+    margin-top: 0;    
+}
+
+.portfolio_item .item_body p {
+    margin: 1em 0;
+}

@@ -1,0 +1,116 @@
+(function($) {
+	$(function(){
+
+		form = $('form.crud');
+		
+		$('input[name="title"]', form).keyup($.debounce(350, function(e){
+			$.post(SITE_URL + 'ajax/url_title', { title : $(this).val() }, function(slug){
+				$('input[name="slug"]', form).val( slug );
+			});
+		}));
+		
+		$('#portfolio-options-tab ol li:first a').colorbox({
+			srollable: false,
+			innerWidth: 600,
+			innerHeight: 280,
+			href: SITE_URL + 'admin/portfolio/clients/create_ajax',
+			onComplete: function() {
+				$.colorbox.resize();
+				$('form#clients').removeAttr('action');
+				$('form#clients').live('submit', function(e) {
+					
+					var form_data = $(this).serialize();
+					
+					$.ajax({
+						url: SITE_URL + 'admin/portfolio/clients/create_ajax',
+						type: "POST",
+					        data: form_data,
+						success: function(obj) {
+							
+							if (obj.status == 'ok') {
+								
+								//succesfull db insert do this stuff
+								var select = 'select[name=client_id]';
+								var opt_val = obj.client_id;
+								var opt_text = obj.title;
+								var option = '<option value="'+opt_val+'" selected="selected">'+opt_text+'</option>';
+								
+								//append to dropdown the new option
+								$(select).append(option);
+																
+								//uniform workaround
+								$('#portfolio-options-tab li:first span').html(obj.title);
+								
+								//close the colorbox
+								$.colorbox.close();
+							} else {
+								//no dice
+							
+								//append the message to the dom
+								$('#cboxLoadedContent').html(obj.message + obj.form);
+								$('#cboxLoadedContent p:first').addClass('notification error').show();
+							}
+						}
+						
+						
+					});
+					e.preventDefault();
+				});
+				
+			}
+		});
+                
+		$('#portfolio-options-tab ol li.category a').colorbox({
+			srollable: false,
+			innerWidth: 600,
+			innerHeight: 280,
+			href: SITE_URL + 'admin/portfolio/categories/create_ajax',
+			onComplete: function() {
+				$.colorbox.resize();
+				$('form#categories').removeAttr('action');
+				$('form#categories').live('submit', function(e) {
+					
+					var form_data = $(this).serialize();
+					
+					$.ajax({
+						url: SITE_URL + 'admin/portfolio/categories/create_ajax',
+						type: "POST",
+					        data: form_data,
+						success: function(data) {
+							
+							//var obj = $.parseJSON(data);
+                                                        var obj = data;
+							if(obj.status == 'ok') {
+								
+								//succesfull db insert do this stuff
+								var select = 'select[name="category_id[]"]';
+								var opt_val = obj.category_id;
+								var opt_text = obj.title;
+								var option = '<option value="'+opt_val+'" selected="selected">'+opt_text+'</option>';
+								
+								//append to dropdown the new option
+								$(select).append(option);
+																
+								//uniform workaround
+								$('#portfolio-options-tab li.category span').html(obj.title);
+								
+								//close the colorbox
+								$.colorbox.close();
+							} else {
+								//no dice
+							
+								//append the message to the dom
+								$('#cboxLoadedContent').html(obj.message + obj.form);
+								$('#cboxLoadedContent p:first').addClass('notification error').show();
+							}
+						}
+						
+						
+					});
+					e.preventDefault();
+				});
+				
+			}
+		});                
+	});
+})(jQuery);
