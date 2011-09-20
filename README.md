@@ -1,5 +1,4 @@
-PyroCMS - Portfolio Module
--------------------------
+# PyroCMS - Portfolio Module
 
 A portfolio module for Pyro CMS http://www.pyrocms.com
 
