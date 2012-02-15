@@ -82,7 +82,7 @@ class Admin extends Admin_Controller {
      * @return void
      */
     public function __construct() {
-        parent::Admin_Controller();
+        parent::__construct();
 
         $this->load->model('portfolio_m');
         $this->load->model('portfolio_clients_m');
